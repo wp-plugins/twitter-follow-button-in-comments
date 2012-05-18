@@ -1,5 +1,6 @@
 === Twitter follow button in coments ===
 Contributors: Fabulatorcz
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=michal%40fabulator%2ecz&lc=CZ&item_name=Michal%20Ozogan%20%2d%20donate&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
 Tags: twitter, comments, social, follow button
 Requires at least: 3.0.0
 Tested up to: 3.3.2
