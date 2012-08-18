@@ -2,7 +2,7 @@
 /*
 Plugin Name: Twitter follow button in coments
 Description: This plugin will allow your visitors to submit their twitter, while they are commenting your posts. They account will by showed as a twitter follow button.
-Author: Michal Ozog�n
+Author: Michal Ozogan
 Version: 0.3
 Author URI: http://fabulator.cz/
 */
@@ -64,45 +64,8 @@ function tfbin_twitter_follow_button_page() {
 				<th scope="row"><label for="tfbin-lang">Language options</label></th>
 				<td>
 				<select name="tfbin-lang">
-<?php 
-					$langs = array(
-					"nl" => "Nederlands",
-					"en" => "English",
-					"fr" => "français",
-					"de" => "Deutsch",
-					"id" => "Bahasa Indonesia",
-					"it" => "Italiano",
-					"pt" => "Português",
-					"es" => "Español",
-					"tr" => "Türkçe",
-					"pl" => "Polski",
-					"no" => "Norsk",
-					"da" => "Dansk",
-					"af" => "Afrikaans",
-					"ca" => "catala",					
-					"hu" => "Magyar",					
-					"fi" => "Suomi",
-					"sv" => "Svenska",
-					"eu" => "Euskara",
-					"fil" => "Filipino",
-					"ur" => "اردو",
-					"cs" => "Čeština",
-					"ru" => "Русский",
-					"msa" => "Bahasa Melayu",
-					"ar" => "العربية",
-					"hi" => "हिन्दी",
-					"uk" => "Українська мова",
-					"zh-cn" => "简体中文",
-					"zh-tw" => "繁體中文",
-					"fa" => "فارسی",
-					"he" => "עִבְרִית",
-					"th" => "ภาษาไทย",
-					"ja" => "日本語",
-					"ko" => "한국어",
-					"el" => "Ελληνικά"			
-					);
-					?>
-
+				<?php 
+					$langs = array( "nl" => "Nederlands", "en" => "English", "fr" => "français", "de" => "Deutsch", "id" => "Bahasa Indonesia", "it" => "Italiano", "pt" => "Português", "es" => "Español", "tr" => "Türkçe", "pl" => "Polski", "no" => "Norsk", "da" => "Dansk", "af" => "Afrikaans", "ca" => "catala", "hu" => "Magyar","fi" => "Suomi", "sv" => "Svenska", "eu" => "Euskara", "fil" => "Filipino", "ur" => "اردو", "cs" => "Čeština", "ru" => "Русский", "msa" => "Bahasa Melayu", "ar" => "العربية", "hi" => "हिन्दी", "uk" => "Українська мова", "zh-cn" => "简体中文", "zh-tw" => "繁體中文", "fa" => "فارسی", "he" => "עִבְרִית", "th" => "ภาษาไทย", "ja" => "日本語", "ko" => "한국어", "el" => "Ελληνικά");?>
 					<?php foreach($langs as $key => $value){ ?>
 						<option value="<?php echo $key ?>" <?php if(get_option('tfbin-lang') == $key or get_option('tfbin-lang') == "") echo "selected"; ?>><?php echo $value; ?></option>
 					<?php } ?>
