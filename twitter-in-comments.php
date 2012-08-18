@@ -2,8 +2,8 @@
 /*
 Plugin Name: Twitter follow button in coments
 Description: This plugin will allow your visitors to submit their twitter, while they are commenting your posts. They account will by showed as a twitter follow button.
-Author: Michal OzogÃ¡n
-Version: 0.2
+Author: Michal Ozogán
+Version: 0.3
 Author URI: http://fabulator.cz/
 */
 ?>
