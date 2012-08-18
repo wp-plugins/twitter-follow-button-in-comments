@@ -21,6 +21,7 @@ function tfbin_register_mysettings() {
 	register_setting( 'tfbin-settings-group', 'tfbin-lang' );
 	register_setting( 'tfbin-settings-group', 'tfbin-text_color' );
 	register_setting( 'tfbin-settings-group', 'tfbin-link_color' );
+	register_setting( 'tfbin-settings-group', 'tfbin-twitter' );
 	}
 function tfbin_twitter_follow_button_page() {
 ?>
@@ -30,7 +31,7 @@ function tfbin_twitter_follow_button_page() {
 		<?php settings_fields( 'tfbin-settings-group' ); ?>
 		<table class="form-table">
 			<tr valign="top">
-				<th scope="row">Large or Medium button?</th>
+				<th scope="row">Medium or Large button?</th>
 				<td>
 					<fieldset><label><input <?php if(get_option('tfbin-data_size') == 'medium' or get_option('tfbin-data_size') == "") echo "checked=\"checked\""; ?> name="tfbin-data_size" type="radio" value="medium" /><span></span> Medium</label><label> <input <?php if(get_option('tfbin-data_size') == 'large') echo "checked=\"checked\""; ?> name="tfbin-data_size" type="radio" value="large" /><span></span> Large</label></fieldset>
 				</td>
@@ -52,23 +53,59 @@ function tfbin_twitter_follow_button_page() {
 				<td>
 					<input name="tfbin-link_color" type="text" value="<?php if(get_option('tfbin-link_color') == "") echo "800080"; else echo get_option('tfbin-link_color') ?>" />
 				</td>
-			</tr>			
+			</tr>
+			<tr valign="top">
+				<th scope="row">Name of field for Twitter</th>
+				<td>
+					<input name="tfbin-twitter" type="text" value="<?php if(get_option('tfbin-twitter') == "") echo "Twitter"; else echo get_option('tfbin-twitter') ?>" />
+				</td>
+			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="tfbin-lang">Language options</label></th>
 				<td>
 				<select name="tfbin-lang">
-					<option value="nl" <?php if(get_option('tfbin-lang') == 'nl') echo "selected"; ?>>Dutch</option>
-					<option value="en" <?php if(get_option('tfbin-lang') == 'en' or get_option('tfbin-lang') == "") echo "selected"; ?>>English</option>
-					<option value="fr" <?php if(get_option('tfbin-lang') == 'fr') echo "selected"; ?>>French</option>
-					<option value="de" <?php if(get_option('tfbin-lang') == 'de') echo "selected"; ?>>German</option>
-					<option value="id" <?php if(get_option('tfbin-lang') == 'id') echo "selected"; ?>>Indonesian</option>
-					<option value="it" <?php if(get_option('tfbin-lang') == 'it') echo "selected"; ?>>Italian</option>
-					<option value="ja" <?php if(get_option('tfbin-lang') == 'ja') echo "selected"; ?>>Japanese</option>
-					<option value="ko" <?php if(get_option('tfbin-lang') == 'ko') echo "selected"; ?>>Korean</option>
-					<option value="pt" <?php if(get_option('tfbin-lang') == 'pt') echo "selected"; ?>>Portuguese</option>
-					<option value="ru" <?php if(get_option('tfbin-lang') == 'ru') echo "selected"; ?>>Russian</option>
-					<option value="es" <?php if(get_option('tfbin-lang') == 'es') echo "selected"; ?>>Spanish</option>
-					<option value="tr" <?php if(get_option('tfbin-lang') == 'tr') echo "selected"; ?>>Turkish</option>
+<?php 
+					$langs = array(
+					"nl" => "Nederlands",
+					"en" => "English",
+					"fr" => "français",
+					"de" => "Deutsch",
+					"id" => "Bahasa Indonesia",
+					"it" => "Italiano",
+					"pt" => "Português",
+					"es" => "Español",
+					"tr" => "Türkçe",
+					"pl" => "Polski",
+					"no" => "Norsk",
+					"da" => "Dansk",
+					"af" => "Afrikaans",
+					"ca" => "catala",					
+					"hu" => "Magyar",					
+					"fi" => "Suomi",
+					"sv" => "Svenska",
+					"eu" => "Euskara",
+					"fil" => "Filipino",
+					"ur" => "اردو",
+					"cs" => "Čeština",
+					"ru" => "Русский",
+					"msa" => "Bahasa Melayu",
+					"ar" => "العربية",
+					"hi" => "हिन्दी",
+					"uk" => "Українська мова",
+					"zh-cn" => "简体中文",
+					"zh-tw" => "繁體中文",
+					"fa" => "فارسی",
+					"he" => "עִבְרִית",
+					"th" => "ภาษาไทย",
+					"ja" => "日本語",
+					"ko" => "한국어",
+					"el" => "Ελληνικά"			
+					);
+					?>
+
+					<?php foreach($langs as $key => $value){ ?>
+						<option value="<?php echo $key ?>" <?php if(get_option('tfbin-lang') == $key or get_option('tfbin-lang') == "") echo "selected"; ?>><?php echo $value; ?></option>
+					<?php } ?>
 				</select>
 				</td>
 			</tr>
@@ -109,7 +146,7 @@ function ulozit_komentar( $comment_id ) {
  ?>
  <table>
  <tr>
- <th><label for="twitter">Twitter: </label></th>
+ <th><label for="twitter"><?php if(get_option('tfbin-twitter') == "") echo "Twitter"; else echo get_option('tfbin-twitter') ?>: </label></th>
  <td><input type="text" name="twitter" id="twitter" value="<?php echo esc_attr(get_the_author_meta('twitter', $user->ID) ); ?>" /></td>
  </tr>
  </table>
@@ -129,7 +166,8 @@ function attach_twitter_to_text( $text ) {
 	global $comment;	
 	if($comment->user_id == 0) $twitter = get_comment_meta( get_comment_ID(), 'twitter', true );
 	else $twitter = get_user_meta($comment->user_id, 'twitter', true);
-	$twitter = str_replace("@","",$twitter);
+	$twitter = explode("/", str_replace("@","",$twitter));
+	$twitter = $twitter[count($twitter) - 1];
 	if($twitter != "") {
 		$tw = "<a href=\"http://twitter.com/$twitter\" class=\"twitter-follow-button\"";
 		if(get_option('tfbin-show_count')) $tw .= " data-show-count=\"". get_option('tfbin-show_count') ."\"";
